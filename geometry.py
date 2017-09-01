@@ -51,13 +51,12 @@ def rectangular_surfacearea(w,h,l):
 # function calls
 print(triangle_area(4,9))
 print(circle_area(5))
-print(circle_area(12))
+
 print(parallelogram_area(3,5))
 print(trapezoid_area(6,5,4 ))
 print(rectangularprism_volume(6,5,4 ))
 print(cone_volume(5,3))
 print(sphere_volume(5))
-
 print(surfacearea_sphere(4))
 print(hypo_right(8,3))
 print(rectangular_surfacearea(6,5,4 ))
