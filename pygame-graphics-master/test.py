@@ -1,6 +1,7 @@
 # Imports
 import pygame
 import math
+import random
 
 # Initialize game engine
 pygame.init()
@@ -88,19 +89,35 @@ while not done:
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 10],1)
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 11],1)
 
-    pygame.draw.rect(screen, LGREY, [274, 250, 162, 130])
+    pygame.draw.rect(screen, LGREY, [274, 253, 162, 130])
    
     
     
     
     
     
-   
+    stars = []
+    for i in range(200,400):
+        x = random.randrange(272,434)
+        y = random.randrange(250, 380)
+        r = random.randrange(1,5)
+        s = [ x,y,r,r]
+        
+        stars.append(s)
     
     
     #pygame.draw.line(screen, GREEN, [300, 40], [100,500], 5)
    # pygame.draw.ellipse(screen, BLUE, [100, 100, 600, 300])
     #pygame.draw.polygon(screen, BLACK, [[200, 200], [50,400], [600, 500]], 10)
+
+
+    ''' stars '''
+
+    for s in stars:
+        pygame.draw.ellipse(screen, GREEN,s)
+
+
+
 
     ''' angles for arcs are measured in radians (a pre-cal topic) '''
     #pygame.draw.arc(screen, ORANGE, [100, 100, 100, 100], 0, math.pi/2, 1)
