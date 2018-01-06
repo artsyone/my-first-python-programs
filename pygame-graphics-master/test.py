@@ -12,6 +12,7 @@ SIZE = (900, 800)
 TITLE = "My Awesome Picture"
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
+ballPicture = pygame.image.load('a.png').convert()
 
 
 # Timer
@@ -91,30 +92,54 @@ while not done:
 
     pygame.draw.rect(screen, LGREY, [274, 253, 162, 130])
    
+  
+    pygame.draw.ellipse(screen, BLACK, [475, 250, 28, 28])
+    pygame.draw.ellipse(screen, BLACK, [475, 300, 28, 28])
+    pygame.draw.line(screen, WHITE, [489, 250], [489,264], 3)
+    pygame.draw.line(screen, WHITE, [475, 264], [489,264], 3)
+    pygame.draw.line(screen, WHITE, [489, 277], [489,264], 3)
+    pygame.draw.line(screen, GREEN, [502, 264], [489,264], 3)
     
     
+    pygame.draw.line(screen, GREEN, [489, 328], [489,314], 3)
+    pygame.draw.line(screen, GREEN, [475, 314], [489,314], 3)
+   
+    pygame.draw.line(screen,WHITE, [489, 300], [489,314], 3)
+    pygame.draw.line(screen,GREEN, [502, 314], [489,314], 3)
     
-    
+   
+    knob = [[400, 300,500,250],[],[]]
+    knob2 = [[400, 300,500,250],[],[]]
+
     
     stars = []
+
+
+    
     for i in range(200,400):
-        x = random.randrange(272,434)
-        y = random.randrange(250, 380)
+        x = random.randrange(274,434)
+        y = random.randrange(255, 380)
         r = random.randrange(1,5)
         s = [ x,y,r,r]
         
         stars.append(s)
+        
+ 
     
-    
+     
     #pygame.draw.line(screen, GREEN, [300, 40], [100,500], 5)
    # pygame.draw.ellipse(screen, BLUE, [100, 100, 600, 300])
     #pygame.draw.polygon(screen, BLACK, [[200, 200], [50,400], [600, 500]], 10)
+   
+    
+    ''' notch '''
 
-
+  
+   
     ''' stars '''
 
     for s in stars:
-        pygame.draw.ellipse(screen, GREEN,s)
+        pygame.draw.ellipse(screen,GREEN,s)
 
 
 
