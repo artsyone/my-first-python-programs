@@ -8,7 +8,7 @@ pygame.init()
 
 
 # Window
-SIZE = (900, 800)
+SIZE = (800, 500)
 TITLE = "My Awesome Picture"
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
@@ -25,13 +25,54 @@ RED = (250, 24, 31)
 REDL = (255, 159, 163)
 GREEN = (0, 255, 0)
 BLUE = (33, 65, 103)
+BLUE1 = (33,65,255)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 ORANGE = (255, 125 , 0)
 GREY = (196, 196, 196)
 DAGREY = (58, 59, 61)
 LGREY = (162, 169, 179)
+YELLOW =(255,125,0)
+FGREEN =(34,139,34)
+
+
+def draw_cloud(x, y):
+    pygame.draw.ellipse(screen, WHITE, [x +10, y + 20, 20 , 20])
+    pygame.draw.ellipse(screen, WHITE, [x + 50, y + 20, 20 , 20])
+    pygame.draw.ellipse(screen, WHITE, [x + 25, y + 10, 15, 15])
+    pygame.draw.ellipse(screen, WHITE, [x + 35, y, 30, 30])
+    pygame.draw.rect(screen, WHITE, [x + 20, y + 20, 40, 20])
+
+def draw_flower1(x, y):
+    pygame.draw.ellipse(screen, YELLOW, [x +10, y + 20, 20 , 20])
+    pygame.draw.ellipse(screen, BLUE, [x +20, y + 30, 20 , 20])
+    pygame.draw.ellipse(screen, BLUE, [x +10, y +40, 20 , 20])
+    pygame.draw.ellipse(screen, YELLOW, [x +0, y +30, 20 , 20])
+    pygame.draw.ellipse(screen, BLACK, [x + 13, y + 33, 15 , 15])
     
+    pygame.draw.line(screen, YELLOW, [100, 100], [100,50], 5)
+
+def draw_flower(x, y,):
+    
+    
+    pygame.draw.ellipse(screen, YELLOW, [x +0, y + 14, 10 , 10])
+    pygame.draw.ellipse(screen, YELLOW, [x +5, y + 20, 10 , 10])
+    pygame.draw.ellipse(screen, YELLOW, [x +0, y + 25, 10 , 10])
+
+    pygame.draw.ellipse(screen, YELLOW, [x - 5, y +20, 10 , 10])
+    pygame.draw.ellipse(screen, BLACK, [x + 3, y + 22, 7.5 , 7.5])   
+
+def draw_bush(x, y):
+    pygame.draw.ellipse(screen, FGREEN, [x +10, y + 20, 20 , 20])
+    pygame.draw.ellipse(screen, FGREEN, [x + 50, y + 20, 20 , 20])
+    pygame.draw.ellipse(screen, FGREEN, [x + 25, y + 10, 15, 15])
+    pygame.draw.ellipse(screen, FGREEN, [x + 35, y, 30, 30])
+    pygame.draw.rect(screen, FGREEN, [x + 20, y + 20, 40, 20])
+    pygame.draw.ellipse(screen, FGREEN, [x + 25, y, 30, 30])
+    pygame.draw.ellipse(screen, FGREEN, [x + 15, y, 30, 30])
+
+
+
 
 # Game loop
 done = False
@@ -62,6 +103,7 @@ while not done:
     pygame.draw.rect(screen, WHITE, [240, 220, 300, 200])
     pygame.draw.rect(screen, BLACK, [245, 225, 290, 190])
     pygame.draw.rect(screen, BLUE, [255, 235, 200, 170])
+    
     pygame.draw.rect(screen, GREY, [255, 235, 200, 170])
     pygame.draw.rect(screen, BLACK, [270, 240, 170, 160])
     pygame.draw.rect(screen, BLUE, [275, 245, 160, 150])
@@ -90,16 +132,77 @@ while not done:
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 10],1)
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 11],1)
 
+   
+
+
+
+   
+
+    
+
     pygame.draw.rect(screen, LGREY, [274, 253, 162, 130])
    
-  
+
+   # Drawing code
+    ''' sky '''
+    
+    pygame.draw.rect(screen, BLUE1, [274, 253, 162, 130])
+    ''' sun '''
+    pygame.draw.ellipse(screen, YELLOW, [400, 260, 28, 28])
+
+    ''' clouds '''
+    
+    draw_cloud(274, 260)
+    draw_cloud(344, 270)
+    
+    draw_cloud(650, 100)
+
+    
+    
+
+    
+    ''' grass '''
+    pygame.draw.rect(screen, GREEN, [275, 375, 163, 20])
+
+
+    draw_bush(250,335)
+    draw_bush(300,335)
+    draw_bush(350,335)
+    draw_bush(375,335)
+
+
+    draw_flower(300,315)
+    draw_flower(400,325)
+    draw_flower(350,335)
+    
+
+    ''' fence '''
+    y = 350
+    for x in range(279, 431, 29):
+        pygame.draw.polygon(screen,WHITE, [[x+5, y], [x+10, y+5],
+                                            [x+10, y+40], [x, y+40],
+                                            [x, y+5]])
+    pygame.draw.line(screen, WHITE, [275, 370], [437, 370], 5)
+    pygame.draw.line(screen, WHITE, [275, 380], [437, 380], 5)
+   
+     
+    #pygame.draw.line(screen, GREEN, [300, 40], [100,500], 5)
+   # pygame.draw.ellipse(screen, BLUE, [100, 100, 600, 300])
+    #pygame.draw.polygon(screen, BLACK, [[200, 200], [50,400], [600, 500]], 10)
+   
+
+
+     
     pygame.draw.ellipse(screen, BLACK, [475, 250, 28, 28])
     pygame.draw.ellipse(screen, BLACK, [475, 300, 28, 28])
+     
+             
     pygame.draw.line(screen, WHITE, [489, 250], [489,264], 3)
     pygame.draw.line(screen, WHITE, [475, 264], [489,264], 3)
     pygame.draw.line(screen, WHITE, [489, 277], [489,264], 3)
     pygame.draw.line(screen, GREEN, [502, 264], [489,264], 3)
     
+
     
     pygame.draw.line(screen, GREEN, [489, 328], [489,314], 3)
     pygame.draw.line(screen, GREEN, [475, 314], [489,314], 3)
@@ -107,39 +210,31 @@ while not done:
     pygame.draw.line(screen,WHITE, [489, 300], [489,314], 3)
     pygame.draw.line(screen,GREEN, [502, 314], [489,314], 3)
     
-   
-    knob = [[400, 300,500,250],[],[]]
-    knob2 = [[400, 300,500,250],[],[]]
-
+    
+    
+    pygame.draw.rect(screen, BLACK, [271, 245, 168, 154],6)
+    pygame.draw.rect(screen, GREY, [440, 235, 15, 169])
+    pygame.draw.rect(screen, GREY, [255, 236, 15, 167])
     
     stars = []
-
-
-    
+  
     for i in range(200,400):
         x = random.randrange(274,434)
         y = random.randrange(255, 380)
         r = random.randrange(1,5)
-        s = [ x,y,r,r]
+        s = [ x,y,r,r,]
         
         stars.append(s)
         
- 
-    
-     
+       
     #pygame.draw.line(screen, GREEN, [300, 40], [100,500], 5)
    # pygame.draw.ellipse(screen, BLUE, [100, 100, 600, 300])
     #pygame.draw.polygon(screen, BLACK, [[200, 200], [50,400], [600, 500]], 10)
    
     
-    ''' notch '''
-
-  
-   
-    ''' stars '''
-
-    for s in stars:
-        pygame.draw.ellipse(screen,GREEN,s)
+    
+    #for s in stars:
+        # pygame.draw.ellipse(screen,GREEN,s)
 
 
 
