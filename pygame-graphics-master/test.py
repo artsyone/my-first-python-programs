@@ -32,34 +32,28 @@ ORANGE = (255, 125 , 0)
 GREY = (196, 196, 196)
 DAGREY = (58, 59, 61)
 LGREY = (162, 169, 179)
-YELLOW =(255,125,0)
+YELLOW =(255,125,0) # not really yellow
 FGREEN =(34,139,34)
 
+colors = [RED,REDL,BLUE,BLUE1,WHITE,ORANGE,YELLOW]
 
-def draw_cloud(x, y):
+c = colors[random.randint(0,len(colors)-1)]
+def draw_cloud(x, y,):
     pygame.draw.ellipse(screen, WHITE, [x +10, y + 20, 20 , 20])
     pygame.draw.ellipse(screen, WHITE, [x + 50, y + 20, 20 , 20])
     pygame.draw.ellipse(screen, WHITE, [x + 25, y + 10, 15, 15])
     pygame.draw.ellipse(screen, WHITE, [x + 35, y, 30, 30])
     pygame.draw.rect(screen, WHITE, [x + 20, y + 20, 40, 20])
 
-def draw_flower1(x, y):
-    pygame.draw.ellipse(screen, YELLOW, [x +10, y + 20, 20 , 20])
-    pygame.draw.ellipse(screen, BLUE, [x +20, y + 30, 20 , 20])
-    pygame.draw.ellipse(screen, BLUE, [x +10, y +40, 20 , 20])
-    pygame.draw.ellipse(screen, YELLOW, [x +0, y +30, 20 , 20])
-    pygame.draw.ellipse(screen, BLACK, [x + 13, y + 33, 15 , 15])
-    
-    pygame.draw.line(screen, YELLOW, [100, 100], [100,50], 5)
 
-def draw_flower(x, y,):
+def draw_flower(x, y,c):
     
     
-    pygame.draw.ellipse(screen, YELLOW, [x +0, y + 14, 10 , 10])
-    pygame.draw.ellipse(screen, YELLOW, [x +5, y + 20, 10 , 10])
-    pygame.draw.ellipse(screen, YELLOW, [x +0, y + 25, 10 , 10])
+    pygame.draw.ellipse(screen, c, [x +0, y + 14, 10 , 10])
+    pygame.draw.ellipse(screen, c, [x +5, y + 20, 10 , 10])
+    pygame.draw.ellipse(screen, c, [x +0, y + 25, 10 , 10])
 
-    pygame.draw.ellipse(screen, YELLOW, [x - 5, y +20, 10 , 10])
+    pygame.draw.ellipse(screen, c, [x - 5, y +20, 10 , 10])
     pygame.draw.ellipse(screen, BLACK, [x + 3, y + 22, 7.5 , 7.5])   
 
 def draw_bush(x, y):
@@ -171,9 +165,9 @@ while not done:
     draw_bush(375,335)
 
 
-    draw_flower(300,315)
-    draw_flower(400,325)
-    draw_flower(350,335)
+    draw_flower(300,315,c)
+    draw_flower(400,325,c)
+    draw_flower(350,335,c)
     
 
     ''' fence '''
