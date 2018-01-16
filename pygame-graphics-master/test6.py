@@ -12,7 +12,7 @@ SIZE = (800, 500)
 TITLE = "My Awesome Picture"
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
-ballPicture = pygame.image.load('a.png').convert()
+
 
 
 # Timer
@@ -122,9 +122,7 @@ while not done:
     # Drawing code
     screen.fill(WHITE)
     pygame.draw.rect(screen, BLACK, [235, 245, 300, 215])
-    pygame.draw.line(screen, GREEN, [380, 190], [250,50], 5)
-    pygame.draw.line(screen, GREEN, [380, 190], [250,50], 5)
-
+    
 
     pygame.draw.line(screen, BLACK, [390, 190], [250,50], 5)
     pygame.draw.line(screen, BLACK, [400, 190], [520,50], 5)
@@ -217,32 +215,41 @@ while not done:
                                             [x, y+5]])
     pygame.draw.line(screen, WHITE, [275, 370], [437, 370], 5)
     pygame.draw.line(screen, WHITE, [275, 380], [437, 380], 5)
-   
-     
     #pygame.draw.line(screen, GREEN, [300, 40], [100,500], 5)
    # pygame.draw.ellipse(screen, BLUE, [100, 100, 600, 300])
     #pygame.draw.polygon(screen, BLACK, [[200, 200], [50,400], [600, 500]], 10)
    
-
+   
 
      
     pygame.draw.ellipse(screen, BLACK, [475, 250, 28, 28])
     pygame.draw.ellipse(screen, BLACK, [475, 300, 28, 28])
-     
-             
-    pygame.draw.line(screen, WHITE, [489, 250], [489,264], 3)
-    pygame.draw.line(screen, WHITE, [475, 264], [489,264], 3)
-    pygame.draw.line(screen, WHITE, [489, 277], [489,264], 3)
-    pygame.draw.line(screen, GREEN, [502, 264], [489,264], 3)
 
-
-count = []
-def knob(b):
     
-    while count < 4:
-        e = b[random.choice(0,len(b)-1)]
-        count += 1 
-        
+    postions = [489, 250, 489,264],[475, 264, 489,264],[489, 277, 489,264],[502, 264,489,264]
+  
+
+    knobp = [489, 328,489,314],[475, 314, 489,314],[489, 300, 489,314],[502, 314,489,314]
+    
+
+
+
+       
+
+    def knob():
+             postion = postions[random.randint(0,3)]
+             pygame.draw.line(screen, WHITE, postion[0:2],postion[2:4],3)
+
+    def knob2():
+             postion = knobp[random.randint(0,3)]
+             pygame.draw.line(screen, WHITE, postion[0:2],postion[2:4],3)
+
+           
+    
+      
+                
+    
+            
     
 
     
@@ -253,7 +260,8 @@ def knob(b):
 
 
 
-    knob(e)
+    knob()
+    knob2()
     
     stars = []
   
