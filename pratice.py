@@ -110,7 +110,7 @@ def draw_flower2(xc,yc,c):
     pygame.draw.ellipse(screen, c, [xc +0, yc + 14, 10 , 10])
     pygame.draw.ellipse(screen, c, [xc +5, yc + 20, 10 , 10])
     pygame.draw.ellipse(screen, c, [xc +0, yc + 25, 10 , 10])
-
+ 
     pygame.draw.ellipse(screen, c, [xc - 5, yc +20, 10 , 10])
     pygame.draw.ellipse(screen, BLACK, [xc + 3, yc + 22, 7.5 , 7.5])  
 
@@ -135,18 +135,18 @@ def knob2(f):
     if f == BLACK:
         postion = knobp[random.randint(0,3)]
         pygame.draw.line(screen, WHITE, postion[0:2],postion[2:4],3)
-       
-        
-        
-  
+
+
 
 
 
 daytime = True
 tvbuzz = False
+tvbuzz1 = False
 f = []
+count = 0
 
-
+count1 = 0
 
 # Game loop
 pygame.mixer.music.play(-1)
@@ -163,6 +163,11 @@ while not done:
                 daytime = not daytime
             elif event.key == pygame.K_UP:
                 tvbuzz = not tvbuzz
+                count += 1
+
+            elif event.key == pygame.K_DOWN:
+                tvbuzz1 = not tvbuzz1
+                count1 += 1 
                 # Game logic (Check for collisions, update points, etc.)
 
                 
@@ -359,9 +364,46 @@ while not done:
         pygame.draw.line(screen, WHITE, [275, 380], [437, 380], 5)
     else:
         pygame.draw.rect(screen, BLACK, [271, 245, 168, 154],6) 
-        
-     
 
+
+        
+    if tvbuzz:
+        pygame.draw.line(screen, BLACK, [489, 250], [489,264],3)
+        pygame.draw.line(screen, WHITE, [475, 264], [489,264],3)
+        pygame.draw.line(screen, BLACK, [502, 264],[489,264] ,3)
+    else:
+        pygame.draw.line(screen, WHITE, [489, 277], [489,264],3)
+        
+
+
+
+
+
+
+
+
+    if tvbuzz1:
+        pygame.draw.line(screen, WHITE, [489, 250], [489,264],3)
+        pygame.draw.line(screen, BLACK, [475, 264], [489,264],3)
+        pygame.draw.line(screen, BLACK, [489, 277], [489,264],3)
+        pygame.draw.line(screen, BLACK, [502, 264],[489,264] ,3)
+    else:
+       
+        pygame.draw.line(screen, WHITE, [489, 277], [489,264],3)
+        
+        
+    
+        
+        
+        
+    pygame.draw.line(screen, WHITE, [489, 328],[489,314],3)
+    pygame.draw.line(screen, WHITE, [475, 314], [489,314],3)
+    pygame.draw.line(screen, WHITE, [489, 300], [489,314],3)
+    pygame.draw.line(screen, WHITE, [489, 300], [489,314],3)
+    pygame.draw.line(screen, WHITE, [502, 314],[489,314],3)
+
+           
+  
    
     
     pygame.draw.rect(screen, BLACK, [271, 245, 168, 154],6)
@@ -369,8 +411,8 @@ while not done:
     pygame.draw.rect(screen, GREY, [255, 236, 15, 167])
     
 
-    knob(f)
-    knob2(f)
+    #knob(f)
+    #knob2(f)
     
     stars = []
   
