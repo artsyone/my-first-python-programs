@@ -32,6 +32,7 @@ BLACK = (0, 0, 0)
 ORANGE = (255, 125 , 0)
 GREY = (196, 196, 196)
 DAGREY = (58, 59, 61)
+DARKERG = (29, 29, 30)
 LGREY = (162, 169, 179)
 YELLOW =(255,125,0) # not really yellow
 FGREEN =(34,139,34)
@@ -39,7 +40,7 @@ FGREEN =(34,139,34)
 
 # Sound Effects
 pygame.mixer.music.load("sounds/tv.ogg")
-
+friends = pygame.image.load("friends.jpg")
 
 
 num_clouds = 1
@@ -204,6 +205,7 @@ while not done:
     # Drawing code
     screen.fill(WHITE)
     pygame.draw.rect(screen, DAGREY, [435, 245, 215, 215])
+    pygame.draw.rect(screen, DARKERG, [435, 400, 215, 60])
     pygame.draw.rect(screen, BLACK, [235, 245, 300, 215])
     
 
@@ -246,13 +248,7 @@ while not done:
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 10],1)
     pygame.draw.rect(screen, BLACK, [475, 340, 40, 11],1)
 
-   
 
-
-
-   
-
-    
 
     pygame.draw.rect(screen, LGREY, [274, 253, 162, 130])
    
@@ -374,6 +370,7 @@ while not done:
         pygame.draw.line(screen, WHITE, [475, 264], [489,264],3)
         pygame.draw.line(screen, BLACK, [489, 277], [489,264],3)
         pygame.draw.line(screen, BLACK, [502, 264],[489,264] ,3)
+        screen.blit(friends,(274,249))
 
     elif count == 2:
         pygame.draw.line(screen, BLACK, [489, 250], [489,264],3)
@@ -436,7 +433,7 @@ while not done:
     pygame.draw.rect(screen, BLACK, [271, 245, 168, 154],6)
     pygame.draw.rect(screen, GREY, [440, 235, 15, 169])
     pygame.draw.rect(screen, GREY, [255, 236, 15, 167])
-    
+    #pygame.draw.polygon(screen, DAGREY, [[450, 500], [300,500], [500, 200]])
 
     #knob(f)
     #knob2(f)
