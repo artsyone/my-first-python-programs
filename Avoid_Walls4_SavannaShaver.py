@@ -33,10 +33,14 @@ laugh = pygame.mixer.Sound("sounds/laugh.ogg")
 yell = pygame.mixer.Sound("sounds/yell.ogg")
 
 #images
-terror = pygame.image.load("terror.png")
-pug1 = pygame.image.load("happy-pug.jpg")
-person = pygame.image.load("scarycute1.jpg")
-pug2 = pygame.image.load("goodpug.jpg")
+terror = pygame.image.load("images/terror.png")
+pug1 = pygame.image.load("images/happy-pug.jpg")
+person = pygame.image.load("images/scarycute.jpg")
+pug2 = pygame.image.load("images/goodpug.jpg")
+pug3 = pygame.image.load("images/pug3.jpg")
+pug4 = pygame.image.load("images/pug4.jpg")
+pug5 = pygame.image.load("images/pug5.jpg")
+
 
 # Make a player
 player1 = [200, 150, 25, 25]
@@ -44,7 +48,7 @@ vel1 = [0, 0]
 player1_speed = 5
 score1 = 0
 #Font
-MY_FONT = pygame.font.Font(None, 50)
+MY_FONT = pygame.font.Font(None,30)
 
 # make walls
 
@@ -61,13 +65,14 @@ wall10 =  [425, 200,400, 25]
 wall11 =  [0,445,400, 25]
 
 walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11]
+
 # Make coins
 coin1 = [300, 500, 25, 25]
 coin2 = [380, 240, 25, 25]
 coin3 = [150, 175, 25, 25]
 coin4 = [475, 235, 25, 25]
 coin5 = [0, 500, 25, 25]
-coins = [coin1,coin2,coin3,coin4,coin5]
+
 
 case = 1
 
@@ -76,17 +81,20 @@ START = 0
 PLAYING = 1
 END = 2
 
-time_remaining = 60
-ticks = 0
+
 
 def setup():
-    global player1_pos,player1_vel, size, stage
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
     size = 50
     stage = START
-    
+    time_remaining = 60
+    ticks = 0
+    fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
+    sad = (random.choice([terror,person]))
+    coins = [coin1,coin2,coin3,coin4,coin5]
 
 
 # Game loop
@@ -238,17 +246,22 @@ while not done:
     if stage == START:
         
         pygame.draw.rect(screen, BLACK, [0,0,800,600])
-        text1 = MY_FONT.render("Block", True, WHITE)
-        text2 = MY_FONT.render("(Press SPACE to play.)", True, WHITE)
-        screen.blit(text1, [350, 150])
-        screen.blit(text2, [225, 200])
+        text = MY_FONT.render("Block", True, WHITE)
+        text3 = MY_FONT.render(" To win collect all the coins before the timer runs out", True, WHITE)
+        text2 = MY_FONT.render(" AVOID THE WALLS OR YOU WILL LOSE", True, WHITE)
+        text1 = MY_FONT.render(" Your MOUSE is your player, dont be fooled this game can be won ", True, WHITE)
+        text4 = MY_FONT.render("(Press SPACE to play.)", True, WHITE) 
+        screen.blit(text1, [125, 150])
+        screen.blit(text2, [125, 200])
+        screen.blit(text3, [125, 250])
+        screen.blit(text4, [125, 300])
       
     elif stage == END:
         pygame.mixer.music.pause()
 
         if win:
-            fun = [pug1,pug2]
-            screen.blit(random.choice(fun) ,(0,0))
+            
+            screen.blit(fun ,(0,0))
             laugh.play()
             font = pygame.font.Font(None, 48)
             text = font.render("You Win!", 1, BLACK)
@@ -258,8 +271,8 @@ while not done:
             aviod = 0
             
         else:
-            sad = ([terror,person])
-            screen.blit(terror,(0,0))
+            
+            screen.blit(sad,(0,0))
             
             yell.play()
             
