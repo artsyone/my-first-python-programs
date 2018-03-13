@@ -67,8 +67,10 @@ wall11 =  [0,445,400, 25]
 wall12 =  [-20,0,25, 800]
 wall13 =  [795,0,25, 800]
 wall14 =  [0,595,800, 25]
+wall15 =  [0,100,300, 25]
 
-walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14]
+
+walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14,wall15]
 
 # Make coins
 coin1 = [300, 500, 25, 25]
@@ -107,6 +109,8 @@ pygame.mixer.music.play(-1)
 win = False
 done = False
 
+
+
 while not done:
     # Event processing (React to key presses, mouse clicks, etc.)
     ''' for now, we'll just check to see if the X is clicked '''
@@ -127,6 +131,8 @@ while not done:
             elif stage == END:
                 if event.key == pygame.K_SPACE:
                     setup()
+                if event.key == pygame.K_l:
+                    done = True
 
 
    
@@ -230,30 +236,13 @@ while not done:
     for c in coins:
         pygame.draw.rect(screen, YELLOW, c)
 
-    if case == 1:
-        color = RED
-        pygame.draw.rect(screen, color, [wall1[0], wall1[1],wall1[2],wall1[3]])
-        pygame.draw.rect(screen, color, [wall2[0], wall2[1],wall2[2],wall2[3]])
-        pygame.draw.rect(screen, color, [wall3[0], wall3[1],wall3[2],wall3[3]])
-        pygame.draw.rect(screen, color, [wall4[0], wall4[1],wall4[2],wall4[3]])
-        pygame.draw.rect(screen, color, [wall5[0], wall5[1],wall5[2],wall5[3]])
-        pygame.draw.rect(screen, color, [wall6[0], wall6[1],wall6[2],wall6[3]])
-        pygame.draw.rect(screen, color, [wall7[0], wall7[1],wall7[2],wall7[3]])
-        pygame.draw.rect(screen, color, [wall8[0], wall8[1],wall8[2],wall8[3]])
-        pygame.draw.rect(screen, color, [wall9[0], wall9[1],wall9[2],wall9[3]])
-        pygame.draw.rect(screen, color, [wall10[0], wall10[1],wall10[2],wall10[3]])
-        pygame.draw.rect(screen, color, [wall11[0], wall11[1],wall11[2],wall11[3]])
-        pygame.draw.rect(screen, color, [wall12[0], wall12[1],wall12[2],wall12[3]])
-        pygame.draw.rect(screen, color, [wall13[0], wall13[1],wall13[2],wall13[3]])
-        pygame.draw.rect(screen, color, [wall14[0], wall14[1],wall14[2],wall14[3]])
-        pygame.draw.rect(screen, WHITE, [player1[0], player1[1], player1[2], player1[3]])
+   
 
    
 
     if stage == START:
         
         pygame.draw.rect(screen, BLACK, [0,0,800,600])
-        text = MY_FONT.render("Block", True, WHITE)
         text3 = MY_FONT.render(" To win collect all the coins before the timer runs out", True, WHITE)
         text2 = MY_FONT.render(" AVOID THE WALLS OR YOU WILL LOSE", True, WHITE)
         text1 = MY_FONT.render(" Your MOUSE is your player, dont be fooled this game can be won ", True, WHITE)
@@ -264,7 +253,7 @@ while not done:
         screen.blit(text4, [125, 300])
       
     elif stage == END:
-        pygame.mixer.music.pause()
+       
 
         if win:
             
@@ -284,10 +273,26 @@ while not done:
             yell.play()
             
             font = pygame.font.Font(None, 48)
-            screen.blit(over,(225,100))
+            
             text1 = font.render("Score:" + str(score1), 1, BLACK)
             screen.blit(text1, [0, 0])
-            
+            sec = ticks//60
+            if  5 < sec <= 7:
+                    screen.blit(over,(225,100))
+                    
+            else:
+                if sec >= 7:
+                    pygame.draw.rect(screen, BLACK, [0,0,800,600])
+                    text2 = MY_FONT.render(" To quit the game, press L, for loser  ", True, WHITE)
+                    text4 = MY_FONT.render(" To try again,(Press SPACE to play.)", True, WHITE) 
+                      
+                    screen.blit(text2, [125, 200])
+                    screen.blit(text4, [125, 300]) 
+
+         
+            ticks += 1
+                
+    
             
 #cant get the setup too work
 #need to make it so u lose if u exit the screen u lose
