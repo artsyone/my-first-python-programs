@@ -40,6 +40,7 @@ pug2 = pygame.image.load("images/goodpug.jpg")
 pug3 = pygame.image.load("images/pug3.jpg")
 pug4 = pygame.image.load("images/pug4.jpg")
 pug5 = pygame.image.load("images/pug5.jpg")
+over = pygame.image.load("images/gameover.png")
 
 
 # Make a player
@@ -63,8 +64,11 @@ wall8 =  [500, 300, 25, 250]
 wall9 =  [350, 100, 25, 200] 
 wall10 =  [425, 200,400, 25]
 wall11 =  [0,445,400, 25]
+wall12 =  [-20,0,25, 800]
+wall13 =  [795,0,25, 800]
+wall14 =  [0,595,800, 25]
 
-walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11]
+walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14]
 
 # Make coins
 coin1 = [300, 500, 25, 25]
@@ -239,6 +243,9 @@ while not done:
         pygame.draw.rect(screen, color, [wall9[0], wall9[1],wall9[2],wall9[3]])
         pygame.draw.rect(screen, color, [wall10[0], wall10[1],wall10[2],wall10[3]])
         pygame.draw.rect(screen, color, [wall11[0], wall11[1],wall11[2],wall11[3]])
+        pygame.draw.rect(screen, color, [wall12[0], wall12[1],wall12[2],wall12[3]])
+        pygame.draw.rect(screen, color, [wall13[0], wall13[1],wall13[2],wall13[3]])
+        pygame.draw.rect(screen, color, [wall14[0], wall14[1],wall14[2],wall14[3]])
         pygame.draw.rect(screen, WHITE, [player1[0], player1[1], player1[2], player1[3]])
 
    
@@ -277,9 +284,8 @@ while not done:
             yell.play()
             
             font = pygame.font.Font(None, 48)
-            text = font.render("GAME OVER!", 1, WHITE)
+            screen.blit(over,(225,100))
             text1 = font.render("Score:" + str(score1), 1, BLACK)
-            screen.blit(text, [400, 200])
             screen.blit(text1, [0, 0])
             
             
