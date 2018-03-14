@@ -31,6 +31,7 @@ GREEN = (0, 255, 0)
 theme = pygame.mixer.music.load("sounds/theme.ogg")
 laugh = pygame.mixer.Sound("sounds/laugh.ogg")
 yell = pygame.mixer.Sound("sounds/yell.ogg")
+laugh3 = pygame.mixer.Sound("sounds/laugh3.ogg")
 
 #images
 terror = pygame.image.load("images/terror.png")
@@ -141,7 +142,7 @@ while not done:
 
     mouse_pos = pygame.mouse.get_pos()
     
-    player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
+    0
     ''' move the player in horizontal direction '''
     player1[0] += vel1[0]
 
@@ -172,6 +173,15 @@ while not done:
     bottom = player1[1] + player1[3]
 
     if stage == PLAYING:
+
+        if  sec <= 2:
+                    player1 = [100, 10, 25, 25]
+                    
+            else:
+                if sec > 2 :
+                    player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
+        ticks += 1
+        
         ''' move block '''        
         for c in coins:
             if intersects.rect_rect(player1, c):
@@ -182,6 +192,9 @@ while not done:
         for hit in hit_list:
             coins.remove(hit)
             score1 += 1
+            laugh3.play()
+            
+            
             print("sound!")
             
         if len(coins) == 0:
@@ -246,15 +259,18 @@ while not done:
         text3 = MY_FONT.render(" To win collect all the coins before the timer runs out", True, WHITE)
         text2 = MY_FONT.render(" AVOID THE WALLS OR YOU WILL LOSE", True, WHITE)
         text1 = MY_FONT.render(" Your MOUSE is your player, dont be fooled this game can be won ", True, WHITE)
-        text4 = MY_FONT.render("(Press SPACE to play.)", True, WHITE) 
+        text4 = MY_FONT.render("(Press SPACE to play.)", True, WHITE)
+
+        
+        
         screen.blit(text1, [125, 150])
         screen.blit(text2, [125, 200])
         screen.blit(text3, [125, 250])
-        screen.blit(text4, [125, 300])
+        screen.blit(text4, [125, 350])
       
     elif stage == END:
-       
-
+        
+        pygame.mixer.music.pause()
         if win:
             
             screen.blit(fun ,(0,0))
