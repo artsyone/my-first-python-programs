@@ -51,10 +51,11 @@ player1_speed = 5
 score1 = 0
 #Font
 MY_FONT = pygame.font.Font(None,30)
+gameover = pygame.font.Font("fonts/game.ttf",60)
 
 # make walls
 
-wall1 =  [300, 275, 400, 25]
+wall1 =  [300 , 275, 400, 25]
 wall2 =  [195, 200, 200, 25]
 wall3 =  [100, 100, 25, 200]
 wall4 =  [350, 100, 25, 200]
@@ -101,7 +102,8 @@ def setup():
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1,coin2,coin3,coin4,coin5]
+    coins = [coin1]
+    
 
 
 # Game loop
@@ -173,13 +175,13 @@ while not done:
     bottom = player1[1] + player1[3]
 
     if stage == PLAYING:
-
+        sec = ticks//60
         if  sec <= 2:
-                    player1 = [100, 10, 25, 25]
+                player1 = [100, 10, 25, 25]
                     
-            else:
-                if sec > 2 :
-                    player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
+        else:
+            if sec > 2 :
+                player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         ticks += 1
         
         ''' move block '''        
@@ -255,6 +257,8 @@ while not done:
 
     if stage == START:
         
+        
+        
         pygame.draw.rect(screen, BLACK, [0,0,800,600])
         text3 = MY_FONT.render(" To win collect all the coins before the timer runs out", True, WHITE)
         text2 = MY_FONT.render(" AVOID THE WALLS OR YOU WILL LOSE", True, WHITE)
@@ -267,21 +271,35 @@ while not done:
         screen.blit(text2, [125, 200])
         screen.blit(text3, [125, 250])
         screen.blit(text4, [125, 350])
+        player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
       
     elif stage == END:
-        
+        player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         pygame.mixer.music.pause()
         if win:
             
             screen.blit(fun ,(0,0))
             laugh.play()
+            sec = ticks//60
+            if  5 < sec <= 7:
+                    g = gameover.render(" You Win ", True, BLACK)
+                    screen.blit(g,(225,250))
+                    
+            else:
+                 if sec >= 7:
+                    pygame.draw.rect(screen, BLACK, [0,0,800,600])
+                    text2 = MY_FONT.render(" To quit the game, press L, for loser  ", True, WHITE)
+                    text4 = MY_FONT.render(" To try again,(Press SPACE to play.)", True, WHITE) 
+                      
+                    screen.blit(text2, [125, 200])
+                    screen.blit(text4, [125, 300])
+                    
             font = pygame.font.Font(None, 48)
-            text = font.render("You Win!", 1, BLACK)
-            screen.blit(text, [400, 200])
             text1 = font.render("Score:" + str(score1) , 1, BLACK)
             screen.blit(text1, [0, 0])
             aviod = 0
             
+           
         else:
             
             screen.blit(sad,(0,0))
@@ -294,17 +312,19 @@ while not done:
             screen.blit(text1, [0, 0])
             sec = ticks//60
             if  5 < sec <= 7:
-                    screen.blit(over,(225,100))
+                    g = gameover.render(" GAME OVER ", True, WHITE)
+                    screen.blit(g,(225,250))
                     
             else:
-                if sec >= 7:
+                 if sec >= 7:
                     pygame.draw.rect(screen, BLACK, [0,0,800,600])
                     text2 = MY_FONT.render(" To quit the game, press L, for loser  ", True, WHITE)
                     text4 = MY_FONT.render(" To try again,(Press SPACE to play.)", True, WHITE) 
                       
                     screen.blit(text2, [125, 200])
-                    screen.blit(text4, [125, 300]) 
-
+                    screen.blit(text4, [125, 300])
+            
+            player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
          
             ticks += 1
                 
