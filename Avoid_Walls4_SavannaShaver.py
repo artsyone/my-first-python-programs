@@ -42,6 +42,9 @@ pug3 = pygame.image.load("images/pug3.jpg")
 pug4 = pygame.image.load("images/pug4.jpg")
 pug5 = pygame.image.load("images/pug5.jpg")
 over = pygame.image.load("images/gameover.png")
+uni = pygame.image.load("images/uni1.png")
+posion = pygame.image.load("images/posion.png")
+
 
 
 # Make a player
@@ -55,24 +58,32 @@ gameover = pygame.font.Font("fonts/game.ttf",60)
 
 # make walls
 
-wall1 =  [300 , 275, 400, 25]
-wall2 =  [195, 200, 200, 25]
-wall3 =  [100, 100, 25, 200]
-wall4 =  [350, 100, 25, 200]
-wall5 =  [425, 100, 25, 200]
-wall6 =  [100, 500, 25, 200]
-wall7 =  [250, 500, 25, 200]
-wall8 =  [500, 300, 25, 250] 
-wall9 =  [350, 100, 25, 200] 
-wall10 =  [425, 200,400, 25]
-wall11 =  [0,445,400, 25]
-wall12 =  [-20,0,25, 800]
-wall13 =  [795,0,25, 800]
-wall14 =  [0,595,800, 25]
-wall15 =  [0,100,300, 25]
+w1 =  [300 , 275, 400, 25]
+w2 =  [195, 200, 200, 25]
+w3 =  [100, 100, 25, 200]
+w4 =  [350, 100, 25, 200]
+w5 =  [425, 100, 25, 200]
+w6 =  [100, 550, 25, 50]
+w7 =  [250, 500, 25, 200]
+w8 =  [500, 300, 25, 250] 
+w9 =  [350, 100, 25, 200] 
+w10 =  [425, 200,400, 25]
+w11 =  [50,445,375, 25]
+w12 =  [-20,0,25, 800]
+w13 =  [795,0,25, 800]
+w14 =  [0,595,800, 25]
+w15 =  [0,100,300, 25]
+w16 =  [100,275,100, 25]
+w17 =  [100,385,400, 25]
+w18 =  [40,185,25, 375]
+w19 =  [700,75,25, 125]
+w20 =  [300,350,25, 50]
+w21 =  [560,350,25, 150]
+w22 =  [625,450,25, 150]
 
 
-walls = [wall1, wall2, wall3, wall4,wall5,wall6,wall7,wall8,wall9,wall10,wall11,wall12,wall13,wall14,wall15]
+
+walls = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,w21,w22]
 
 # Make coins
 coin1 = [300, 500, 25, 25]
@@ -80,9 +91,14 @@ coin2 = [380, 240, 25, 25]
 coin3 = [150, 175, 25, 25]
 coin4 = [475, 235, 25, 25]
 coin5 = [0, 500, 25, 25]
+coin6 = [200, 500, 25, 25]
+coin7 = [100, 500, 25, 25]
 
+u1 =[200,350,40,40]
+u2 =[200,250,40,40]
+u3 =[200,450,40,40]
+u4 =[200,150,40,40]
 
-case = 1
 
 # stages
 START = 0
@@ -92,17 +108,20 @@ END = 2
 
 
 def setup():
-    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
     size = 50
     stage = START
-    time_remaining = 60
+    time_remaining = 1000
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1]
+    coins = [coin1,coin2,coin3,coin4,coin5]
+    unicorn = [u1,u2,u3,u4]
+    my_coins = []
+
     
 
 
@@ -144,7 +163,7 @@ while not done:
 
     mouse_pos = pygame.mouse.get_pos()
     
-    0
+    
     ''' move the player in horizontal direction '''
     player1[0] += vel1[0]
 
@@ -175,9 +194,13 @@ while not done:
     bottom = player1[1] + player1[3]
 
     if stage == PLAYING:
+
+        
+        
         sec = ticks//60
         if  sec <= 2:
                 player1 = [100, 10, 25, 25]
+                
                     
         else:
             if sec > 2 :
@@ -192,6 +215,7 @@ while not done:
         hit_list = [c for c in coins if intersects.rect_rect(player1, c)]
         
         for hit in hit_list:
+            my_coins.append(hit)
             coins.remove(hit)
             score1 += 1
             laugh3.play()
@@ -203,15 +227,35 @@ while not done:
             win = True
             stage = END
 
-      
+
+
+
+        ''' move block '''        
+        
+         
+        stuff_list = [u for u in unicorn if intersects.rect_rect(player1, u)]
+        
+        for stuff in stuff_list:
+            unicorn.remove(stuff)
+            score1 += 1
+            laugh3.play()
+            
+            
+            print("sound!")
+            
+        if intersects.rect_rect(player1, u1):
+            for c in my_coins:
+                coins.append(c)
+
+        
           
         ''' end game on wall collision '''
-    avoid = []
-    for w in walls:
-            if intersects.rect_rect(player1, w):
-                avoid.append(w)
-                stage = END
-    avoid = [w for w in walls if intersects.rect_rect(player1, w)]
+    #avoid = []
+    #for w in walls:
+            #if intersects.rect_rect(player1, w):
+                #avoid.append(w)
+                #stage = END
+    #avoid = [w for w in walls if intersects.rect_rect(player1, w)]
     
     ''' timer stuff '''
     if stage == PLAYING:
@@ -238,7 +282,8 @@ while not done:
    
     # Drawing code (Describe the picture. It isn't actually drawn yet.)
     screen.fill(BLACK)
-
+   
+    
     ''' timer text '''
     timer_text = MY_FONT.render(str(time_remaining), True, WHITE)
     screen.blit(timer_text, [50, 50])
@@ -251,8 +296,12 @@ while not done:
     for c in coins:
         pygame.draw.rect(screen, YELLOW, c)
 
-   
-
+    
+    for u in unicorn:
+        
+        screen.blit(uni, (u[0],u[1]))
+    screen.blit(posion, (150, 50))   
+    
    
 
     if stage == START:
