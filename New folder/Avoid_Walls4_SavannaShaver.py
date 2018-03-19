@@ -64,7 +64,7 @@ w3 =  [100, 100, 25, 200]
 w4 =  [350, 100, 25, 200]
 w5 =  [425, 100, 25, 200]
 w6 =  [100, 550, 25, 50]
-w7 =  [250, 500, 25, 200]
+w7 =  [250, 500, 25, 150]
 w8 =  [500, 300, 25, 250] 
 w9 =  [350, 100, 25, 200] 
 w10 =  [425, 200,400, 25]
@@ -74,12 +74,13 @@ w13 =  [795,0,25, 800]
 w14 =  [0,595,800, 25]
 w15 =  [0,100,300, 25]
 w16 =  [100,275,100, 25]
-w17 =  [100,385,400, 25]
+w17 =  [100,385,320, 25]
 w18 =  [40,185,25, 375]
 w19 =  [700,75,25, 125]
 w20 =  [300,350,25, 50]
 w21 =  [560,350,25, 150]
 w22 =  [625,450,25, 150]
+
 
 
 
@@ -90,7 +91,17 @@ coin1 = [300, 500, 25, 25]
 coin2 = [380, 240, 25, 25]
 coin3 = [150, 175, 25, 25]
 coin4 = [475, 235, 25, 25]
-coin5 = [0, 500, 25, 25]
+coin5 = [10, 500, 25, 25]
+coin6 = [200, 500, 25, 25]
+coin7 = [100, 500, 25, 25]
+
+u1 =[453,380,40,40]
+u2 =[737,240,40,40]
+u3 =[160,500,40,40]
+u4 =[300,155,40,40]
+
+
+
 
 
 # stages
@@ -101,7 +112,7 @@ END = 2
 
 
 def setup():
-    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
@@ -112,6 +123,8 @@ def setup():
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
     coins = [coin1,coin2,coin3,coin4,coin5]
+    unicorn = [u1,u2,u3,u4]
+    
     
 
 
@@ -153,30 +166,6 @@ while not done:
 
     mouse_pos = pygame.mouse.get_pos()
     
-    
-    ''' move the player in horizontal direction '''
-    player1[0] += vel1[0]
-
-    ''' resolve collisions horizontally '''
-    for w in walls:
-        if intersects.rect_rect(player1, w):        
-            if vel1[0] > 0:
-                player1[0] = w[0] - player1[2]
-            elif vel1[0] < 0:
-                player1[0] = w[0] + w[2]
-
-    ''' move the player in vertical direction '''
-    player1[1] += vel1[1]
-    
-    ''' resolve collisions vertically '''
-    for w in walls:
-        if intersects.rect_rect(player1, w):                    
-            if vel1[1] > 0:
-                player1[1] = w[1] - player1[3]
-            if vel1[1]< 0:
-                player1[1] = w[1] + w[3]
-
-
     ''' get block edges (makes collision resolution easier to read) '''
     left = player1[0]
     right = player1[0] + player1[2]
@@ -205,6 +194,7 @@ while not done:
         hit_list = [c for c in coins if intersects.rect_rect(player1, c)]
         
         for hit in hit_list:
+
             coins.remove(hit)
             score1 += 1
             laugh3.play()
@@ -215,6 +205,26 @@ while not done:
         if len(coins) == 0:
             win = True
             stage = END
+
+
+
+
+        ''' move block '''        
+        
+         
+        stuff_list = [u for u in unicorn if intersects.rect_rect(player1, u)]
+        
+        for stuff in stuff_list:
+            unicorn.remove(stuff)
+            coins = [coin1,coin2,coin3,coin4,coin5]
+            score1 += 1
+            laugh3.play()
+            
+            
+            print("sound!")
+            
+        
+            
 
         
           
@@ -265,7 +275,10 @@ while not done:
     for c in coins:
         pygame.draw.rect(screen, YELLOW, c)
 
-    screen.blit(uni, (200, 250))
+    
+    for u in unicorn:
+        
+        screen.blit(uni, (u[0],u[1]))
     screen.blit(posion, (150, 50))   
     
    
@@ -289,6 +302,7 @@ while not done:
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
       
     elif stage == END:
+        
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         pygame.mixer.music.pause()
         if win:
