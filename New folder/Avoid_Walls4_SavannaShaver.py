@@ -7,7 +7,7 @@ import random
 pygame.init()
 
 
-# Window
+# Window  
 WIDTH = 800
 HEIGHT = 600
 SIZE = (WIDTH, HEIGHT)
@@ -101,7 +101,10 @@ u3 =[160,500,40,40]
 u4 =[300,155,40,40]
 
 
-
+p1 =[553,380,40,40]
+p2 =[237,240,40,40]
+p3 =[260,500,40,40]
+p4 =[400,155,40,40]
 
 
 # stages
@@ -112,18 +115,19 @@ END = 2
 
 
 def setup():
-    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins,jelly
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
     size = 50
     stage = START
-    time_remaining = 1000
+    time_remaining = 60
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
     coins = [coin1,coin2,coin3,coin4,coin5]
     unicorn = [u1,u2,u3,u4]
+    jelly = [p1,p2,p3,p4]
     
     
 
@@ -217,15 +221,23 @@ while not done:
         for stuff in stuff_list:
             unicorn.remove(stuff)
             coins = [coin1,coin2,coin3,coin4,coin5]
-            score1 += 1
             laugh3.play()
             
             
             print("sound!")
-            
-        
-            
 
+
+
+        
+        things_list = [p for p in jelly if intersects.rect_rect(player1, p)]
+        
+        for things in things_list:
+            jelly.remove(things)
+            laugh3.play()
+            
+            
+            
+            print("sound!")
         
           
         ''' end game on wall collision '''
@@ -279,10 +291,10 @@ while not done:
     for u in unicorn:
         
         screen.blit(uni, (u[0],u[1]))
-    screen.blit(posion, (150, 50))   
-    
-   
 
+    for p in jelly:
+        screen.blit(posion, (p[0],p[1]))   
+        
     if stage == START:
         
         
