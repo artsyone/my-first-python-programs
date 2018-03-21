@@ -32,6 +32,8 @@ theme = pygame.mixer.music.load("sounds/theme.ogg")
 laugh = pygame.mixer.Sound("sounds/laugh.ogg")
 yell = pygame.mixer.Sound("sounds/yell.ogg")
 laugh3 = pygame.mixer.Sound("sounds/laugh3.ogg")
+magic = pygame.mixer.Sound("sounds/laugh3.ogg")
+hurt = pygame.mixer.Sound("sounds/posion.ogg")
 
 #images
 terror = pygame.image.load("images/terror.png")
@@ -125,8 +127,8 @@ def setup():
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1,coin2,coin3,coin4,coin5]
-    unicorn = [u1,u2,u3,u4]
+    coins = [coin1]
+    unicorn = []
     jelly = [p1,p2,p3,p4]
     
     
@@ -134,7 +136,7 @@ def setup():
 
 # Game loop
 setup()
-pygame.mixer.music.play(-1)
+pygame.mixer.music.play(-1) 
 win = False
 done = False
 
@@ -148,7 +150,7 @@ while not done:
             done = True
         
         elif event.type == pygame.KEYDOWN:
-            
+             pygame.mouse.get_pressed()
             if stage == START:
                 if event.key == pygame.K_SPACE:
                     stage = PLAYING
@@ -198,8 +200,9 @@ while not done:
         hit_list = [c for c in coins if intersects.rect_rect(player1, c)]
         
         for hit in hit_list:
-
+            
             coins.remove(hit)
+            
             score1 += 1
             laugh3.play()
             
@@ -220,8 +223,9 @@ while not done:
         
         for stuff in stuff_list:
             unicorn.remove(stuff)
+            
             coins = [coin1,coin2,coin3,coin4,coin5]
-            laugh3.play()
+            magic.play()
             
             
             print("sound!")
@@ -233,7 +237,7 @@ while not done:
         
         for things in things_list:
             jelly.remove(things)
-            laugh3.play()
+            posion.play()
             
             
             
@@ -307,25 +311,27 @@ while not done:
 
         
         
-        screen.blit(text1, [125, 150])
-        screen.blit(text2, [125, 200])
-        screen.blit(text3, [125, 250])
-        screen.blit(text4, [125, 350])
+        screen.blit(text1, [100, 150])
+        screen.blit(text2, [100, 200])
+        screen.blit(text3, [100, 250])
+        screen.blit(text4, [100, 350])
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
       
     elif stage == END:
         
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         pygame.mixer.music.pause()
+        
         if win:
             
             screen.blit(fun ,(0,0))
             laugh.play()
             sec = ticks//60
+            
             if  5 < sec <= 7:
                     g = gameover.render(" You Win ", True, BLACK)
                     screen.blit(g,(225,250))
-                    
+    
             else:
                  if sec >= 7:
                     pygame.draw.rect(screen, BLACK, [0,0,800,600])
@@ -339,7 +345,7 @@ while not done:
             text1 = font.render("Score:" + str(score1) , 1, BLACK)
             screen.blit(text1, [0, 0])
             aviod = 0
-            
+           
            
         else:
             
@@ -367,7 +373,7 @@ while not done:
             
             player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
          
-            ticks += 1
+        ticks += 1
                 
     
             
