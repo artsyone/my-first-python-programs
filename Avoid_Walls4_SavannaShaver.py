@@ -7,7 +7,7 @@ import random
 pygame.init()
 
 
-# Window
+# Window  
 WIDTH = 800
 HEIGHT = 600
 SIZE = (WIDTH, HEIGHT)
@@ -32,6 +32,8 @@ theme = pygame.mixer.music.load("sounds/theme.ogg")
 laugh = pygame.mixer.Sound("sounds/laugh.ogg")
 yell = pygame.mixer.Sound("sounds/yell.ogg")
 laugh3 = pygame.mixer.Sound("sounds/laugh3.ogg")
+magic = pygame.mixer.Sound("sounds/laugh3.ogg")
+hurt = pygame.mixer.Sound("sounds/posion.ogg")
 
 #images
 terror = pygame.image.load("images/terror.png")
@@ -64,7 +66,7 @@ w3 =  [100, 100, 25, 200]
 w4 =  [350, 100, 25, 200]
 w5 =  [425, 100, 25, 200]
 w6 =  [100, 550, 25, 50]
-w7 =  [250, 500, 25, 200]
+w7 =  [250, 500, 25, 150]
 w8 =  [500, 300, 25, 250] 
 w9 =  [350, 100, 25, 200] 
 w10 =  [425, 200,400, 25]
@@ -74,12 +76,13 @@ w13 =  [795,0,25, 800]
 w14 =  [0,595,800, 25]
 w15 =  [0,100,300, 25]
 w16 =  [100,275,100, 25]
-w17 =  [100,385,400, 25]
+w17 =  [100,385,320, 25]
 w18 =  [40,185,25, 375]
 w19 =  [700,75,25, 125]
 w20 =  [300,350,25, 50]
 w21 =  [560,350,25, 150]
 w22 =  [625,450,25, 150]
+
 
 
 
@@ -90,14 +93,20 @@ coin1 = [300, 500, 25, 25]
 coin2 = [380, 240, 25, 25]
 coin3 = [150, 175, 25, 25]
 coin4 = [475, 235, 25, 25]
-coin5 = [0, 500, 25, 25]
+coin5 = [10, 500, 25, 25]
 coin6 = [200, 500, 25, 25]
 coin7 = [100, 500, 25, 25]
 
-u1 =[200,350,40,40]
-u2 =[200,250,40,40]
-u3 =[200,450,40,40]
-u4 =[200,150,40,40]
+u1 =[453,380,40,40]
+u2 =[737,240,40,40]
+u3 =[160,500,40,40]
+u4 =[300,155,40,40]
+
+
+p1 =[553,380,40,40]
+p2 =[237,240,40,40]
+p3 =[260,500,40,40]
+p4 =[400,155,40,40]
 
 
 # stages
@@ -108,26 +117,28 @@ END = 2
 
 
 def setup():
-    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins,jelly,click,score 
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
     size = 50
     stage = START
-    time_remaining = 1000
+    time_remaining = 60
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1,coin2,coin3,coin4,coin5]
+    coins = [coin1]
     unicorn = [u1,u2,u3,u4]
-    my_coins = []
-
+    jelly = [p1,p2,p3,p4]
+    click = False
+    score = 0
+    
     
 
 
 # Game loop
 setup()
-pygame.mixer.music.play(-1)
+pygame.mixer.music.play(-1) 
 win = False
 done = False
 
@@ -139,7 +150,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        
+
         elif event.type == pygame.KEYDOWN:
             
             if stage == START:
@@ -157,36 +168,19 @@ while not done:
                     done = True
 
 
+       
+        if event.type == pygame.MOUSEBUTTONDOWN:
+                    player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
+                    click = True 
+        else:
+                    player1 = [10, 10, 25, 25]
+
    
         
     # Game logic (Check for collisions, update points, etc.)
 
     mouse_pos = pygame.mouse.get_pos()
     
-    
-    ''' move the player in horizontal direction '''
-    player1[0] += vel1[0]
-
-    ''' resolve collisions horizontally '''
-    for w in walls:
-        if intersects.rect_rect(player1, w):        
-            if vel1[0] > 0:
-                player1[0] = w[0] - player1[2]
-            elif vel1[0] < 0:
-                player1[0] = w[0] + w[2]
-
-    ''' move the player in vertical direction '''
-    player1[1] += vel1[1]
-    
-    ''' resolve collisions vertically '''
-    for w in walls:
-        if intersects.rect_rect(player1, w):                    
-            if vel1[1] > 0:
-                player1[1] = w[1] - player1[3]
-            if vel1[1]< 0:
-                player1[1] = w[1] + w[3]
-
-
     ''' get block edges (makes collision resolution easier to read) '''
     left = player1[0]
     right = player1[0] + player1[2]
@@ -195,17 +189,13 @@ while not done:
 
     if stage == PLAYING:
 
-        
-        
-        sec = ticks//60
-        if  sec <= 2:
-                player1 = [100, 10, 25, 25]
-                
-                    
+        if click == True:
+            player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         else:
-            if sec > 2 :
-                player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
-        ticks += 1
+            pass
+            
+        
+        
         
         ''' move block '''        
         for c in coins:
@@ -215,8 +205,9 @@ while not done:
         hit_list = [c for c in coins if intersects.rect_rect(player1, c)]
         
         for hit in hit_list:
-            my_coins.append(hit)
+            
             coins.remove(hit)
+            
             score1 += 1
             laugh3.play()
             
@@ -237,18 +228,21 @@ while not done:
         
         for stuff in stuff_list:
             unicorn.remove(stuff)
-            score1 += 1
-            laugh3.play()
+            
+            coins = [coin1,coin2,coin3,coin4,coin5]
+            magic.play()
             
             
             print("sound!")
-            
-        if intersects.rect_rect(player1, u1):
-            for c in my_coins:
-                coins.append(c)
-
         
-          
+        things_list = [p for p in jelly if intersects.rect_rect(player1, p)]
+        
+        for things in things_list:
+            jelly.remove(things)
+            hurt.play()  
+            
+            print("sound!")
+        
         ''' end game on wall collision '''
     #avoid = []
     #for w in walls:
@@ -300,10 +294,10 @@ while not done:
     for u in unicorn:
         
         screen.blit(uni, (u[0],u[1]))
-    screen.blit(posion, (150, 50))   
-    
-   
 
+    for p in jelly:
+        screen.blit(posion, (p[0],p[1]))   
+        
     if stage == START:
         
         
@@ -316,24 +310,27 @@ while not done:
 
         
         
-        screen.blit(text1, [125, 150])
-        screen.blit(text2, [125, 200])
-        screen.blit(text3, [125, 250])
-        screen.blit(text4, [125, 350])
+        screen.blit(text1, [100, 150])
+        screen.blit(text2, [100, 200])
+        screen.blit(text3, [100, 250])
+        screen.blit(text4, [100, 350])
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
       
     elif stage == END:
+        
         player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
         pygame.mixer.music.pause()
+        
         if win:
             
             screen.blit(fun ,(0,0))
             laugh.play()
             sec = ticks//60
+            
             if  5 < sec <= 7:
                     g = gameover.render(" You Win ", True, BLACK)
                     screen.blit(g,(225,250))
-                    
+    
             else:
                  if sec >= 7:
                     pygame.draw.rect(screen, BLACK, [0,0,800,600])
@@ -342,12 +339,14 @@ while not done:
                       
                     screen.blit(text2, [125, 200])
                     screen.blit(text4, [125, 300])
-                    
+                   
             font = pygame.font.Font(None, 48)
             text1 = font.render("Score:" + str(score1) , 1, BLACK)
-            screen.blit(text1, [0, 0])
-            aviod = 0
             
+            screen.blit(text1, [0, 0])
+            
+            aviod = 0
+           
            
         else:
             
@@ -375,21 +374,8 @@ while not done:
             
             player1 = [mouse_pos[0], mouse_pos[1], 25, 25]
          
-            ticks += 1
-                
-    
-            
-#cant get the setup too work
-#need to make it so u lose if u exit the screen u lose
-#Make sure to fix the image random list
-       
-
-   
-        
-    
-        
-       
-        
+        ticks += 1
+  
     
     # Update screen (Actually draw the picture in the window.)
     pygame.display.flip()
