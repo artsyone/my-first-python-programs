@@ -32,7 +32,7 @@ theme = pygame.mixer.music.load("sounds/theme.ogg")
 laugh = pygame.mixer.Sound("sounds/laugh.ogg")
 yell = pygame.mixer.Sound("sounds/yell.ogg")
 laugh3 = pygame.mixer.Sound("sounds/laugh3.ogg")
-magic = pygame.mixer.Sound("sounds/laugh3.ogg")
+magic = pygame.mixer.Sound("sounds/magic.ogg")
 hurt = pygame.mixer.Sound("sounds/posion.ogg")
 
 #images
@@ -45,15 +45,9 @@ pug4 = pygame.image.load("images/pug4.jpg")
 pug5 = pygame.image.load("images/pug5.jpg")
 over = pygame.image.load("images/gameover.png")
 uni = pygame.image.load("images/uni1.png")
-posion = pygame.image.load("images/posion.png")
+poison = pygame.image.load("images/posion.png")
 
 
-
-# Make a player
-player1 = [200, 150, 25, 25]
-vel1 = [0, 0]
-player1_speed = 5
-score1 = 0
 #Font
 MY_FONT = pygame.font.Font(None,30)
 gameover = pygame.font.Font("fonts/game.ttf",60)
@@ -117,7 +111,7 @@ END = 2
 
 
 def setup():
-    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins,jelly,click,score 
+    global player1_pos,player1_vel, size, stage,time_remaining,ticks,coins,sad,fun,unicorn,my_coins,jelly,click,score1,win 
     
     player1_pos = [375, 275]
     player1_vel = [0, 0]
@@ -127,11 +121,12 @@ def setup():
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1]
+    coins = [coin1,coin2,coin3]
     unicorn = [u1,u2,u3,u4]
     jelly = [p1,p2,p3,p4]
     click = False
-    score = 0
+    win = False
+    score1 = 0
     
     
 
@@ -139,7 +134,6 @@ def setup():
 # Game loop
 setup()
 pygame.mixer.music.play(-1) 
-win = False
 done = False
 
 
@@ -294,9 +288,11 @@ while not done:
     for u in unicorn:
         
         screen.blit(uni, (u[0],u[1]))
+        for c in coins:
+            pygame.draw.rect(screen, YELLOW, c)
 
     for p in jelly:
-        screen.blit(posion, (p[0],p[1]))   
+        screen.blit(poison, (p[0],p[1]))   
         
     if stage == START:
         
