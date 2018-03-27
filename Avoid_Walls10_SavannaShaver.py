@@ -112,7 +112,7 @@ def setup():
     ticks = 0
     fun = (random.choice ([pug1,pug2,pug3,pug4,pug5]))
     sad = (random.choice([terror,person]))
-    coins = [coin1]
+    coins = [coin1,coin2,coin3,coin4,coin5,coin6,coin7]
     unicorn = [u1,u2,u3,u4]
     jelly = [p1,p2,p3,p4]
     click = False
@@ -143,6 +143,13 @@ def stat_ts():
         
     
 def stats_stuff():
+
+                if score1 >= 7 :
+                    color = GREEN
+
+                else:
+                    color = WHITE
+                    
                 with open('guru90.txt', 'r') as f:
                     words = f.read().splitlines()
 
@@ -157,58 +164,58 @@ def stats_stuff():
                 
                 
                 pygame.draw.rect(screen, RED, [0,0,800,600])
-                text1 = MY_FONT.render(("Name"), True, WHITE)
+                text1 = MY_FONT.render(("Name"), True, color )
                 screen.blit(text1, [125, 100])
-                text2 = MY_FONT.render("Time", True, WHITE)
+                text2 = MY_FONT.render("Time", True, color)
                 screen.blit(text2, [225, 100])
-                text3 = MY_FONT.render(("Score"), True, WHITE)
+                text3 = MY_FONT.render(("Score"), True, color)
                 screen.blit(text3, [325, 100])
 
 
-                text4 = MY_FONT.render(str((words[-6])), True, WHITE)
+                text4 = MY_FONT.render(str((words[-6])), True, color)
                 screen.blit(text4, [125, 150])
-                text5 = MY_FONT.render(str((t_words[-6])), True, WHITE)
+                text5 = MY_FONT.render(str((t_words[-6])), True, color)
                 screen.blit(text5, [225, 150])
-                text11 = MY_FONT.render(str(s_words[-6]), True, WHITE)
+                text11 = MY_FONT.render(str(s_words[-6]), True, color)
                 screen.blit(text11, [325, 150])
 
-                text4 = MY_FONT.render(str((words[-5])), True, WHITE)
+                text4 = MY_FONT.render(str((words[-5])), True, color)
                 screen.blit(text4, [125, 200])
-                text5 = MY_FONT.render(str((t_words[-5])), True, WHITE)
+                text5 = MY_FONT.render(str((t_words[-5])), True, color)
                 screen.blit(text5, [225, 200])
-                text11 = MY_FONT.render(str(s_words[-5]), True, WHITE)
+                text11 = MY_FONT.render(str(s_words[-5]), True, color)
                 screen.blit(text11, [325, 200])
 
 
-                text4 = MY_FONT.render(str((words[-4])), True, WHITE)
+                text4 = MY_FONT.render(str((words[-4])), True, color)
                 screen.blit(text4, [125, 250])
-                text5 = MY_FONT.render(str((t_words[-4])), True, WHITE)
+                text5 = MY_FONT.render(str((t_words[-4])), True, color)
                 screen.blit(text5, [225, 250])
-                text11 = MY_FONT.render(str(s_words[-4]), True, WHITE)
+                text11 = MY_FONT.render(str(s_words[-4]), True, color)
                 screen.blit(text11, [325, 250])
                 
-                text4 = MY_FONT.render(str((words[-3])), True, WHITE)
+                text4 = MY_FONT.render(str((words[-3])), True, color)
                 screen.blit(text4, [125, 300])
-                text5 = MY_FONT.render(str((t_words[-3])), True, WHITE)
+                text5 = MY_FONT.render(str((t_words[-3])), True, color)
                 screen.blit(text5, [225, 300])
-                text11 = MY_FONT.render(str(s_words[-3]), True, WHITE)
+                text11 = MY_FONT.render(str(s_words[-3]), True, color)
                 screen.blit(text11, [325, 300])
                 
-                text4 = MY_FONT.render(str((words[-2])), True, WHITE)
+                text4 = MY_FONT.render(str((words[-2])), True, color)
                 screen.blit(text4, [125, 350])
-                text5 = MY_FONT.render(str((t_words[-2])), True, WHITE)
+                text5 = MY_FONT.render(str((t_words[-2])), True, color)
                 screen.blit(text5, [225, 350])
-                text11 = MY_FONT.render(str(s_words[-2]), True, WHITE)
+                text11 = MY_FONT.render(str(s_words[-2]), True, color)
                 screen.blit(text11, [325, 350])
 
 
                 
 
-                text8 = MY_FONT.render((name), True, WHITE)
+                text8 = MY_FONT.render((name), True, color)
                 screen.blit(text8, [125, 500])
-                text9 = MY_FONT.render(str(time_remaining), True, WHITE)
+                text9 = MY_FONT.render(str(time_remaining), True, color)
                 screen.blit(text9, [225, 500])
-                text10 = MY_FONT.render(str((score1)), True, WHITE)
+                text10 = MY_FONT.render(str((score1)), True, color)
                 screen.blit(text10, [325, 500])
             
 
